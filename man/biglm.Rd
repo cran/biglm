@@ -6,6 +6,8 @@
 \alias{print.biglm}
 \alias{summary.biglm}
 \alias{print.summary.biglm}
+\alias{AIC.biglm}
+\alias{deviance.biglm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Bounded memory linear regression }
 \description{
@@ -20,6 +22,8 @@ biglm(formula, data, weights=NULL, sandwich=FALSE)
 \method{vcov}{biglm}(object,...)
 \method{coef}{biglm}(object,...)
 \method{summary}{biglm}(object,...)
+\method{AIC}{biglm}(object,...,k=2)
+\method{deviance}{biglm}(object,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,6 +36,7 @@ biglm(formula, data, weights=NULL, sandwich=FALSE)
     \code{formula} and \code{weights}}
   \item{moredata}{Additional data to add to the model}
   \item{...}{Additional arguments for future expansion}
+  \item{k}{penalty per parameter for AIC}
 }
 \details{
   The model formula must not contain any data-dependent terms, as these
@@ -59,5 +64,7 @@ a <- update(a,chunk2)
 a <- update(a,chunk3)
 
 summary(a)
+deviance(a)
+AIC(a)
 }
 \keyword{regression}% at least one, from doc/KEYWORDS

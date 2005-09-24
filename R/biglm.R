@@ -21,10 +21,10 @@ function(formula, data, weights=NULL, sandwich=FALSE){
      xx[,1:p]<-mm*model.response(mf)
      for(i in 1:p)
        xx[,p*i+(1:p)]<-mm*mm[,i]
-     xyqr<-update(xyqr,xx,rep(0,n),w)
+     xyqr<-update(xyqr,xx,rep(0,n),w*w)
      rval$sandwich<-list(xy=xyqr)
    }
-
+   rval$df.resid<-rval$n-length(qr$D)
    class(rval)<-"biglm"
    rval	
 }

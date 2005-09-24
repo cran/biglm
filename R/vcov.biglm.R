@@ -8,8 +8,9 @@ function(object,...){
    R<-t(R)
    R<-sqrt(object$qr$D)*R
    ok<-object$qr$D!=0
-   R[ok,ok]<-chol2inv(R[ok,ok])
-   R[!ok,]<-R[,!ok]<-NA
+   R[ok,ok]<-chol2inv(R[ok,ok,drop=FALSE])
+   R[!ok,]<-NA
+   R[,!ok]<-NA
    dimnames(R)<-list(object$names, object$names)
    
    if(!is.null(object$sandwich)){
@@ -24,11 +25,11 @@ function(object,...){
      beta[!ok]<-0
      bbeta<-kronecker(diag(p),beta)
      ##FIXME: singularities in beta
-     Vcenter<-M[1:p,1:p] + t(bbeta)%*%M[-(1:p),-(1:p)]%*%bbeta -
-       t(bbeta)%*%M[-(1:p),1:p] - M[1:p,-(1:p)]%*%bbeta
+     Vcenter<-M[1:p,1:p,drop=FALSE] + t(bbeta)%*%M[-(1:p),-(1:p),drop=FALSE]%*%bbeta -
+       t(bbeta)%*%M[-(1:p),1:p,drop=FALSE] - M[1:p,-(1:p),drop=FALSE]%*%bbeta
      
      V<-matrix(NA,p,p)
-     V[ok,ok]<-R[ok,ok]%*%Vcenter[ok,ok]%*%R[ok,ok]
+     V[ok,ok]<-R[ok,ok,drop=FALSE]%*%Vcenter[ok,ok,drop=FALSE]%*%R[ok,ok,drop=FALSE]
      dimnames(V)<-list(object$names, object$names)
      attr(V,"model-based")<-R*object$qr$ss/(object$n-p+sum(!ok))
    } else {

@@ -2,7 +2,12 @@
 \alias{bigglm}
 \alias{bigglm.function}
 \alias{bigglm.data.frame}
+\alias{bigglm.SQLiteConnection}
+\alias{bigglm.RODBC}
 \alias{vcov.bigglm}
+\alias{deviance.bigglm}
+\alias{family.bigglm}
+\alias{AIC.bigglm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Bounded memory linear regression }
 \description{
@@ -15,7 +20,14 @@ bigglm(formula, data, family=gaussian(),...)
 \method{bigglm}{function}(formula, data, family=gaussian(),
      weights=NULL, sandwich=FALSE, maxit=8, tolerance=1e-7,
      start=NULL,...)
+\method{bigglm}{SQLiteConnection}(formula, data, family=gaussian(),
+      tablename, ..., chunksize=5000)
+\method{bigglm}{RODBC}(formula, data, family=gaussian(),
+      tablename, ..., chunksize=5000)
 \method{vcov}{bigglm}(object,dispersion=NULL, ...)
+\method{deviance}{bigglm}(object,...)
+\method{family}{bigglm}(object,...)
+\method{AIC}{bigglm}(object,...,k=2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -34,10 +46,14 @@ bigglm(formula, data, family=gaussian(),...)
     will not be computed on the first iteration}
   \item{object}{A \code{bigglm} object}
   \item{dispersion}{Dispersion parameter, or \code{NULL} to estimate}
+  \item{tablename}{For the \code{SQLiteConnection} method, the name of a
+    SQL table, or a string specifying a join or nested select}
+  \item{k}{penalty per parameter for AIC}
   \item{...}{Additional arguments}
 }
 \details{
-  The \code{data} argument may be a function or a data frame.
+  The \code{data} argument may be a function, a data frame, or a
+  \code{SQLiteConnection} or \code{RODBC} connection object. 
 
   When it is a function the function must take a single argument
   \code{reset}. When this argument is \code{FALSE} it returns a data
@@ -53,7 +69,13 @@ bigglm(formula, data, family=gaussian(),...)
   will not be consistent when updated.  Factors are permitted, but the
   levels of the factor must be the same across all data chunks (empty
   factor levels are ok).
+
+  The \code{SQLiteConnection} and \code{RODBC} methods loads only the
+  variables needed for the model, not the whole table. The code in the
+  \code{SQLiteConnection} method should work for other \code{DBI}
+  connections, but I do not have any of these to check it with.
 }
+
 \value{
   An object of class \code{biglm}
 }

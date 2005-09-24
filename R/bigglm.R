@@ -16,7 +16,10 @@ bigglm.data.frame<-function(formula, data, ..., chunksize=5000){
         cursor<<-cursor+min(chunksize, n-cursor)
         data[start:cursor,]
     }
-    bigglm(formula=formula, data=datafun,...)
+    rval<-bigglm(formula=formula, data=datafun,...)
+    rval$call<-sys.call()
+    rval$call[[1]]<-as.name(.Generic)
+    rval
 }
 
 bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
@@ -68,7 +71,7 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
                     xx[,1:p]<-mm*drop(z)
                     for(i in 1:p)
                         xx[,p*i+(1:p)]<-mm*mm[,i]
-                    xyqr<-update(xyqr,xx,rep(0,nrow(mm)),ww)
+                    xyqr<-update(xyqr,xx,rep(0,nrow(mm)),ww*ww)
                 }
             }
             firstchunk <- FALSE
@@ -99,6 +102,7 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
     rval <- iwlm
     rval$family <- family
     rval$deviance <- deviance
+    rval$df.resid <- rval$n-length(rval$qr$D)
     class(rval) <- c("bigglm","biglm")
     rval
 }

@@ -18,7 +18,7 @@ function(object,moredata,...){
       xx[,1:p]<-mm*model.response(mf)
       for(i in 1:p)
         xx[,p*i+(1:p)]<-mm*mm[,i]
-      xyqr<-update(object$sandwich$xy,xx,rep(0,n),w)
+      xyqr<-update(object$sandwich$xy,xx,rep(0,n),w*w)
       object$sandwich<-list(xy=xyqr)
     }
     object

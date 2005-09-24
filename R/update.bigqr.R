@@ -8,6 +8,9 @@ function(bigQR, X, y, w=NULL,
   if (is.null(w)) w<-rep(1.0, length(y))
   if (length(y)!=length(w))
     stop("`weights' has wrong length")
+  storage.mode(X)<-"double"
+  storage.mode(y)<-"double"
+  storage.mode(w)<-"double"
   bigQR<-.Call("updateQR",X, y, w, bigQR, add.intercept)
   
   if (singcheck)
