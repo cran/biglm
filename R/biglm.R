@@ -29,8 +29,10 @@ function(formula, data, weights=NULL, sandwich=FALSE){
    rval	
 }
 
+
+
 print.biglm<-function(x,...){
-  cat("Large data linear model: ")
+  cat("Large data regression model: ")
   print(x$call)
   cat("Sample size = ",x$n,"\n")
   invisible(x)

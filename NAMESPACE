@@ -1,10 +1,14 @@
 
 useDynLib(biglm)
 export(biglm)
+export(bigglm)
 S3method(coef, biglm)
 S3method(vcov, biglm)
+S3method(vcov, bigglm)
 S3method(update, biglm)
 S3method(print, biglm)
 S3method(print, summary.biglm)
 S3method(summary, biglm)
+S3method(bigglm,data.frame)
+S3method(bigglm,"function")
 
