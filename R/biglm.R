@@ -45,11 +45,16 @@ summary.biglm<-function(object,...){
                `p`=2*pnorm(abs(beta/se),lower.tail=FALSE))
    rownames(mat)<-object$names
    rval<-list(obj=object, mat=mat)
+   if (attr(object$terms,"intercept"))
+     rval$nullrss<-object$qr$ss+sum(object$qr$D[-1]*object$qr$thetab[-1]^2)
+   else
+     rval$nullrss<-object$qr$ss+sum(object$qr$D*object$qr$thetab^2)
+   rval$rsq<-1-deviance(object)/rval$nullrss
    class(rval)<-"summary.biglm"
    rval
 }
 
-print.summary.biglm<-function(x,digits=3,...){
+print.summary.biglm<-function(x,digits=getOption("digits")-3,...){
    print(x$obj)
    print(round(x$mat,digits))
    if(!is.null(x$obj$sandwich))

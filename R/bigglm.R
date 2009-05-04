@@ -1,5 +1,6 @@
 bigglm<-function(formula, data, family=gaussian(),...)
     UseMethod("bigglm", data)
+setGeneric("bigglm", signature=c("formula","data"))
 
 
 bigglm.data.frame<-function(formula, data, ..., chunksize=5000){
@@ -24,7 +25,7 @@ bigglm.data.frame<-function(formula, data, ..., chunksize=5000){
 
 bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
                             sandwich=FALSE, maxit=8, tolerance=1e-7,
-                            start=NULL, ...){
+                            start=NULL, quiet=FALSE,...){
 
     tt<-terms(formula)
     beta <- start
@@ -77,7 +78,7 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
             firstchunk <- FALSE
         }
         iwlm <- list(call=sys.call(-1), qr=qr, iterations=i,
-                   assign=attr(mm,"assign"), terms=tt, 
+                   assign=attr(mm,"assign"), terms=tt, converged=FALSE,
                    n=n,names=colnames(mm), weights=weights,rss=rss)
         if(sandwich)
             iwlm$sandwich <- list(xy=xyqr)
@@ -85,9 +86,11 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
 
         betaold <- beta
         beta <- coef(iwlm)
-        if (i >= maxit)
+        if (i >= maxit){
+          if (!quiet) warning("ran out of iterations and failed to converge")
             break
-        
+          }
+            
         if (!is.null(betaold)){
             delta <- (betaold-beta)/sqrt(diag(vcov(iwlm)))
             if (max(abs(delta)) < tolerance){
@@ -108,4 +111,14 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
 }
 
 
+
+
+print.bigglm<-function(x,...){
+  cat("Large data regression model: ")
+  print(x$call)
+  cat("Sample size = ",x$n,"\n")
+  if (is.null(x$converged)|| !x$converged)
+    cat("failed to converge after", x$iterations," iterations\n")
+  invisible(x)
+}
 

@@ -1,5 +1,5 @@
 ##
-## based on code by Christophe Dutang <dutangc@gmail.com>
+## based on code by Christophe Dutang <christophe.dutang@ensimag.fr>
 ##
 
 predict.biglm<-function(object, newdata=NULL, se.fit=FALSE,make.function=FALSE,...) {

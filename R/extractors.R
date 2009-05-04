@@ -1,4 +1,4 @@
-deviance.biglm<-function(object,...) object$qr$ss*object$df.resid
+deviance.biglm<-function(object,...) object$qr$ss
 
 formula.biglm <- function(x, ...)
 {

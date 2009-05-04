@@ -1,3 +1,14 @@
+0.7 Proper S4 inheritance for DBIConnection method. There's still something
+    wrong with the set-up, since we have to export all the S3 methods for it
+    to work.
+  
+    summary.biglm object now has $nullrss, $rsq components
+
+
+
+0.6 bigglm() now warns clearly when it runs out of iterations
+    before convergence. (problem reported by Francisco J. Zagmutt)
+
 0.5 SQLiteConnection method (RSQLite package) for bigglm.
 
     biglm() no longer gives an error message when used on 

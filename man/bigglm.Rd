@@ -8,6 +8,7 @@
 \alias{deviance.bigglm}
 \alias{family.bigglm}
 \alias{AIC.bigglm}
+\alias{bigglm,ANY,DBIConnection-method}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Bounded memory linear regression }
 \description{
@@ -19,11 +20,11 @@ bigglm(formula, data, family=gaussian(),...)
 \method{bigglm}{data.frame}(formula, data,...,chunksize=5000)
 \method{bigglm}{function}(formula, data, family=gaussian(),
      weights=NULL, sandwich=FALSE, maxit=8, tolerance=1e-7,
-     start=NULL,...)
-\method{bigglm}{SQLiteConnection}(formula, data, family=gaussian(),
-      tablename, ..., chunksize=5000)
+     start=NULL,quiet=FALSE,...)
 \method{bigglm}{RODBC}(formula, data, family=gaussian(),
       tablename, ..., chunksize=5000)
+\S4method{bigglm}{ANY,DBIConnection}(formula, data, family=gaussian(),
+tablename, ..., chunksize=5000)
 \method{vcov}{bigglm}(object,dispersion=NULL, ...)
 \method{deviance}{bigglm}(object,...)
 \method{family}{bigglm}(object,...)
@@ -49,6 +50,7 @@ bigglm(formula, data, family=gaussian(),...)
   \item{tablename}{For the \code{SQLiteConnection} method, the name of a
     SQL table, or a string specifying a join or nested select}
   \item{k}{penalty per parameter for AIC}
+  \item{quiet}{When \code{FALSE}, warn if the fit did not converge}
   \item{...}{Additional arguments}
 }
 \details{

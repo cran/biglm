@@ -78,7 +78,7 @@ function(object, dispersion=NULL,  ...){
        if (object$family$family %in% c("poisson", "binomial"))
            dispersion <-1
        else
-           dispersion <- object$rss/ddf
+           dispersion <- object$qr$ss/ddf
    }
 
    if (is.null(object$sandwich))
