@@ -7,9 +7,10 @@ function(formula, data, weights=NULL, sandwich=FALSE){
      w<-model.frame(weights, data)[[1]]
    } else w<-NULL
    mf<-model.frame(tt,data)
+   if (is.null(off<-model.offset(mf))) off<-0
    mm<-model.matrix(tt,mf)
    qr<-bigqr.init(NCOL(mm))
-   qr<-update(qr,mm,model.response(mf),w)
+   qr<-update(qr,mm,model.response(mf)-off,w)
    rval<-list(call=sys.call(), qr=qr,assign=attr(mm,"assign"), terms=tt, 
               n=NROW(mm),names=colnames(mm), weights=weights)
 
@@ -18,7 +19,7 @@ function(formula, data, weights=NULL, sandwich=FALSE){
      n<-nrow(mm)
      xyqr<-bigqr.init(p*(p+1))
      xx<-matrix(nrow=n, ncol=p*(p+1))
-     xx[,1:p]<-mm*model.response(mf)
+     xx[,1:p]<-mm*(model.response(mf)-off)
      for(i in 1:p)
        xx[,p*i+(1:p)]<-mm*mm[,i]
      xyqr<-update(xyqr,xx,rep(0,n),w*w)

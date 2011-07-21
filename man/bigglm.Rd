@@ -70,7 +70,7 @@ tablename, ..., chunksize=5000)
   The model formula must not contain any data-dependent terms, as these
   will not be consistent when updated.  Factors are permitted, but the
   levels of the factor must be the same across all data chunks (empty
-  factor levels are ok).
+  factor levels are ok).  Offsets are allowed (since version 0.8).
 
   The \code{SQLiteConnection} and \code{RODBC} methods loads only the
   variables needed for the model, not the whole table. The code in the
@@ -79,7 +79,7 @@ tablename, ..., chunksize=5000)
 }
 
 \value{
-  An object of class \code{biglm}
+  An object of class \code{bigglm}
 }
 \references{Algorithm AS274  Applied Statistics (1992) Vol.41, 
 No. 2 }
@@ -90,6 +90,10 @@ data(trees)
 ff<-log(Volume)~log(Girth)+log(Height)
 a <- bigglm(ff,data=trees, chunksize=10, sandwich=TRUE)
 summary(a)
+
+gg<-log(Volume)~log(Girth)+log(Height)+offset(2*log(Girth)+log(Height))
+b <- bigglm(gg,data=trees, chunksize=10, sandwich=TRUE)
+summary(b)
 
 \dontrun{
 ## requires internet access

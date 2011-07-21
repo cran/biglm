@@ -42,7 +42,7 @@ biglm(formula, data, weights=NULL, sandwich=FALSE)
   The model formula must not contain any data-dependent terms, as these
   will not be consistent when updated.  Factors are permitted, but the
   levels of the factor must be the same across all data chunks (empty
-  factor levels are ok).
+  factor levels are ok). Offsets are allowed (since version 0.8).
 }
 \value{
   An object of class \code{biglm}

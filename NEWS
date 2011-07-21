@@ -1,3 +1,5 @@
+0.8 allow offsets in model formulas for both biglm and bigglm.
+
 0.7 Proper S4 inheritance for DBIConnection method. There's still something
     wrong with the set-up, since we have to export all the S3 methods for it
     to work.

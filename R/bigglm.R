@@ -58,18 +58,19 @@ bigglm.function<-function(formula, data, family=gaussian(), weights=NULL,
             if (!identical(assn, attr(mm,"assign")))
                 stop("model matrices incompatible")
             y<-model.response(mf)
-            eta<-etafun(mm)
+            if(is.null(off<-model.offset(mf))) off<-0
+            eta<-etafun(mm)+off
             mu <- family$linkinv(eta)
             dmu <- family$mu.eta(eta)
-            z<- eta+(y-mu)/dmu
+            z<- eta+(y-mu)/dmu 
             ww<-w*dmu*dmu/(family$variance(mu))
-            qr<-update(qr,mm,z,ww)
+            qr<-update(qr,mm,z-off,ww)
             if(!is.null(beta)){
                 deviance<-deviance+sum(family$dev.resids(y,mu,w))
                 rss<-rss+sum((y-mu)^2/(w*family$variance(mu)))*(sum(w)/length(w))
                 if (sandwich){
                     xx<-matrix(nrow=nrow(mm), ncol=p*(p+1))
-                    xx[,1:p]<-mm*drop(z)
+                    xx[,1:p]<-mm*(drop(z)-off)
                     for(i in 1:p)
                         xx[,p*i+(1:p)]<-mm*mm[,i]
                     xyqr<-update(xyqr,xx,rep(0,nrow(mm)),ww*ww)
