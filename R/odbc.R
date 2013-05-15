@@ -5,9 +5,7 @@ bigglm.RODBC<-function(formula, data, family = gaussian(),
   dots<-as.list(substitute(list(...)))[-1]
   dotvars<-unlist(lapply(dots,all.vars))
   vars<-unique(c(modelvars,dotvars))
-  tablerow<-sqlQuery(data, paste("select * from ",tablename," limit 1"))
-  tablevars<-vars[vars %in% names(tablerow)]
-  query<-paste("select ",paste(tablevars,collapse=", ")," from ",tablename)
+  query<-paste("select ",paste(vars,collapse=", ")," from ",tablename)
   result<-odbcQuery(data, query)
   got<-0
   chunk<-function(reset=FALSE){

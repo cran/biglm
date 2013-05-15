@@ -8,7 +8,8 @@ Computes fitted means and standard errors at new data values after
 fitting a model with \code{biglm} or \code{bigglm}.
 }
 \usage{
-\method{predict}{bigglm}(object, newdata, type = c("link", "response"), se.fit = FALSE, make.function = FALSE, ...)
+\method{predict}{bigglm}(object, newdata, type = c("link", "response"), 
+se.fit = FALSE, make.function = FALSE, ...)
 \method{predict}{biglm}(object, newdata=NULL,  se.fit = FALSE, make.function = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.

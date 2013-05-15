@@ -8,9 +8,7 @@ setMethod("bigglm",
             dots<-as.list(substitute(list(...)))[-1]
             dotvars<-unlist(lapply(dots,all.vars))
             vars<-unique(c(modelvars,dotvars))
-            tablerow<-dbGetQuery(data, paste("select * from ",tablename," limit 1"))
-            tablevars<-vars[vars %in% names(tablerow)]
-            query<-paste("select ",paste(tablevars,collapse=", ")," from ",tablename)
+            query<-paste("select ",paste(vars,collapse=", ")," from ",tablename)
             result<-dbSendQuery(data, query)
             got<-0
             on.exit(dbClearResult(result))

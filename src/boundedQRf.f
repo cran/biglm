@@ -176,9 +176,15 @@ C
       IF (COL .LT. NP) THEN
 	NC2 = NP - COL
 	POS2 = POS + NP - COL + 1
-	CALL INCLUD(NC2, NC2*(NC2-1)/2, D(COL), RBAR(POS+1),
+        IF (NC2 .GT. 1) THEN
+	 CALL INCLUD(NC2, NC2*(NC2-1)/2, D(COL), RBAR(POS+1),
      +            THETAB(COL), D(COL+1), RBAR(POS2), THETAB(COL+1),
      +            SSERR, IER)
+        ELSE
+   	 CALL INCLUD(1, 0, D(COL), RBAR(POS+1),
+     +            THETAB(COL), D(COL+1), RBAR(1), THETAB(COL+1),
+     +            SSERR, IER)
+        END IF
       ELSE
 	SSERR = SSERR + D(COL) * THETAB(COL)**2
       END IF
