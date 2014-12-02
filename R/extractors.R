@@ -1,4 +1,9 @@
-deviance.biglm<-function(object,...) object$qr$ss
+deviance.biglm<-function(object,...) 
+{
+  if (!object$qr$checked)
+    object$qr<-singcheck.bigqr(object$qr)
+  object$qr$ss
+}
 
 formula.biglm <- function(x, ...)
 {
