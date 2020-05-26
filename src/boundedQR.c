@@ -1,10 +1,12 @@
 #include "Rinternals.h"
 #include "R.h"
 
-void F77_NAME(singchk)(int *, int *, double *, double *, double *, double *,
+/* void F77_NAME(singchk)(int *, int *, double *, double *, double *, double *,
 		    double *, int *, double *, int *);
-
-
+*/
+void F77_NAME(singchk)(int *np, int *nrbar, double *d, double *rbar, 
+		double *thetab, double *sserr, double *tol, 
+		int *lindep, double *work, int *ier);
 void F77_NAME(includ)(int *, int *, double *, double *, double *,
 		      double *, double *, double *, double *, int *);
 

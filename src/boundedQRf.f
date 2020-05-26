@@ -133,7 +133,7 @@ C
       INTEGER NP, NRBAR, IER
       DOUBLE PRECISION D(NP), RBAR(NRBAR), THETAB(NP), SSERR,
      +      TOL(NP), WORK(NP)
-      LOGICAL LINDEP(NP)
+      INTEGER  LINDEP(NP)
 C
 C     Local variables
 C
@@ -169,9 +169,9 @@ C     If diagonal element is near zero, set it to zero, set appropriate
 C     element of LINDEP, and use INCLUD to augment the projections in
 C     the lower rows of the orthogonalization.
 C
-      LINDEP(COL) = .FALSE.
+      LINDEP(COL) = 0
       IF (WORK(COL) .LE. TEMP) THEN
-      LINDEP(COL) = .TRUE.
+      LINDEP(COL) = 1
       IER = IER - 1
       IF (COL .LT. NP) THEN
 	NC2 = NP - COL
