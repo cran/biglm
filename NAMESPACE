@@ -1,4 +1,6 @@
 import(stats)
+import(methods)
+importFrom("DBI", "dbClearResult", "dbSendQuery", "fetch")
 useDynLib(biglm)
 export(biglm)
 export(bigglm)

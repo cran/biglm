@@ -1,13 +1,13 @@
-e3aad59cb197797d2520e1b27512e509 *DESCRIPTION
-d448a85fce491075bf6f1708808dac1a *NAMESPACE
+096a1bd3c0b7bf96d8c2c02712559ca6 *DESCRIPTION
+4b68e1a4d3d77c716b5251c1bab3f72c *NAMESPACE
 e542aa124713536215ae44b8cb6baba5 *NEWS
 57f5f4a7741eeb8c2349f357ec9af2fe *R/bigglm.R
 574520a90fd53051b5c87f48c4950091 *R/biglm.R
 316d7f0928d36c7274df83583905be8a *R/bigqr.init.R
 0d7e7a1b710830cf755b84a650b7443d *R/coef.biglm.R
-bf702ee3e71fe5619b5aba118f72a6fc *R/coef.bigqr.R
+ccd290b6803f5555483f990efc4ca445 *R/coef.bigqr.R
 ecb1cd8930736d72d5ac88ad6ecb8b14 *R/extractors.R
-74f2a3ceb5886fd5e7a892c38b8f8528 *R/odbc.R
+4257fdc1e822a41ca367b13d5e848e10 *R/odbc.R
 12d5344f5fbec780b361a456c1cf8785 *R/predict.R
 a78ef52f92d81cfcc95174b85a11a282 *R/singcheck.bigqr.R
 a49e77eaedbce915244d54a034380744 *R/sqlite.R
@@ -20,4 +20,3 @@ e058d4e4129df7af2e1dd7a1c06b0e2f *man/biglm.Rd
 320f09142c7ba3e493a82b161c23a737 *man/predict.bigglm.Rd
 9c1c42793be1764c72586cdf5fa803a7 *src/boundedQR.c
 dc8cb3bb914498c55e06bc16a09bb957 *src/boundedQRf.f
-0cb75a26c65e036aec1f92f7fdb0cdbe *test/esoph.R

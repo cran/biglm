@@ -16,7 +16,7 @@ function(bigQR,nvar=NULL,...){
                   bigQR$tol,
                   beta=numeric(p),
                   nreq=as.integer(nvar),
-                  ier=integer(1), DUP=FALSE)
+                  ier=integer(1))
 
   if (tmp$ier!=0) stop("Error in REGCF: can't happen")
 

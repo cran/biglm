@@ -6,17 +6,17 @@ bigglm.RODBC<-function(formula, data, family = gaussian(),
   dotvars<-unlist(lapply(dots,all.vars))
   vars<-unique(c(modelvars,dotvars))
   query<-paste("select ",paste(vars,collapse=", ")," from ",tablename)
-  result<-odbcQuery(data, query)
+  result<-RODBC::odbcQuery(data, query)
   got<-0
   chunk<-function(reset=FALSE){
     if(reset){
       if(got>0){
-        result<<-odbcQuery(data,query)
+        result<<-RODBC::odbcQuery(data,query)
         got<<-0
       }
       return(TRUE)
     }
-    rval<-sqlGetResults(data,max=chunksize)	
+    rval<-RODBC::sqlGetResults(data,max=chunksize)	
     got<<-got+NROW(rval)
     if (!is.data.frame(rval) || NROW(rval)==0) 
       return(NULL)
