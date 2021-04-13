@@ -13,6 +13,7 @@ function(formula, data, weights=NULL, sandwich=FALSE){
    qr<-update(qr,mm,model.response(mf)-off,w)
    rval<-list(call=sys.call(), qr=qr,assign=attr(mm,"assign"), terms=tt, 
               n=NROW(mm),names=colnames(mm), weights=weights)
+   rval$n<-as.numeric(rval$n)
 
    if (sandwich){
      p<-ncol(mm)
