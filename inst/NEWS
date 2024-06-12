@@ -5,6 +5,10 @@
     fix arguably-false-positive from Fortran bounds checking, by incorporating
     the fix in the published AS274
 
+    Update the Fortran for new compilers to put in CONTINUEs
+
+    Move this file to inst/ because CRAN doesn't allow plain text here
+
 0.8 allow offsets in model formulas for both biglm and bigglm.
 
 0.7 Proper S4 inheritance for DBIConnection method. There's still something

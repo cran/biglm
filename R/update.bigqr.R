@@ -1,6 +1,7 @@
 "update.bigqr" <-
-function(bigQR, X, y, w=NULL,
-                       singcheck=FALSE, add.intercept=FALSE){
+function(object, X, y, w=NULL,
+         singcheck=FALSE, add.intercept=FALSE,...){
+    bigQR<-object
   if (NCOL(X)+add.intercept!=length(bigQR$D))
     stop("Wrong number of columns")
   if (length(y)!=NROW(X))

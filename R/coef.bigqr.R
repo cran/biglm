@@ -1,5 +1,6 @@
 "coef.bigqr" <-
-function(bigQR,nvar=NULL,...){
+    function(object,nvar=NULL,...){
+        bigQR<-object
   p <- length(bigQR$D)
   if (is.null(nvar))
     nvar <- p

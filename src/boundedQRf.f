@@ -53,10 +53,10 @@ C
       D(I) = DPI
       IF (I .EQ. NP) GO TO 20
       DO 10 K = I+1, NP
-	XK = XROW(K)
-	XROW(K) = XK - XI * RBAR(NEXTR)
-	RBAR(NEXTR) = CBAR * RBAR(NEXTR) + SBAR * XK
-	NEXTR = NEXTR + 1
+      XK = XROW(K)
+      XROW(K) = XK - XI * RBAR(NEXTR)
+      RBAR(NEXTR) = CBAR * RBAR(NEXTR) + SBAR * XK
+      NEXTR = NEXTR + 1
    10   CONTINUE
    20   XK = Y
        Y = XK - XI * THETAB(I)
@@ -104,7 +104,8 @@ C     Set TOL(I) = sum of absolute values in column I of RBAR after
 C     scaling each element by the square root of its row multiplier.
 C
       DO 10 ROW = 1, NP
-   10 WORK(ROW) = SQRT(D(ROW))
+       WORK(ROW) = SQRT(D(ROW))
+ 10   CONTINUE
       DO 30 COL = 1, NP
       POS = COL - 1
       IF (COL .LE. NP) THEN
@@ -150,7 +151,8 @@ C
       IF (IER .NE. 0) RETURN
 C
       DO 10 COL = 1, NP
-   10 WORK(COL) = SQRT(D(COL))
+      WORK(COL) = SQRT(D(COL))
+ 10   CONTINUE
 C
       DO 40 COL = 1, NP
 C
@@ -174,19 +176,19 @@ C
       LINDEP(COL) = 1
       IER = IER - 1
       IF (COL .LT. NP) THEN
-	NC2 = NP - COL
-	POS2 = POS + NP - COL + 1
+        NC2 = NP - COL
+        POS2 = POS + NP - COL + 1
         IF (NC2 .GT. 1) THEN
-	 CALL INCLUD(NC2, NC2*(NC2-1)/2, D(COL), RBAR(POS+1),
+        CALL INCLUD(NC2, NC2*(NC2-1)/2, D(COL), RBAR(POS+1),
      +            THETAB(COL), D(COL+1), RBAR(POS2), THETAB(COL+1),
      +            SSERR, IER)
         ELSE
-   	 CALL INCLUD(1, 0, D(COL), RBAR(POS+1),
+        CALL INCLUD(1, 0, D(COL), RBAR(POS+1),
      +            THETAB(COL), D(COL+1), RBAR(1), THETAB(COL+1),
      +            SSERR, IER)
         END IF
       ELSE
-	SSERR = SSERR + D(COL) * THETAB(COL)**2
+        SSERR = SSERR + D(COL) * THETAB(COL)**2
       END IF
       D(COL) = ZERO
       WORK(COL) = ZERO

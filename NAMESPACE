@@ -1,7 +1,7 @@
 import(stats)
 import(methods)
 importFrom("DBI", "dbClearResult", "dbSendQuery", "fetch")
-useDynLib(biglm)
+useDynLib(biglm, .registration = TRUE)
 export(biglm)
 export(bigglm)
 export(bigglm.function,bigglm.data.frame,bigglm.RODBC)
@@ -23,5 +23,9 @@ S3method(summary, biglm)
 S3method(bigglm,data.frame)
 S3method(bigglm,"function")
 S3method(bigglm, RODBC)
+
+
+S3method(coef,bigqr)
+S3method(update, bigqr)
 
 
